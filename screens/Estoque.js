@@ -5,7 +5,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function Estoque({ navigation }) {
   const [produtos, setProdutos] = useState([]);
 
-  // Função para carregar os produtos do AsyncStorage
   const carregarProdutos = async () => {
     try {
       const produtosSalvos = await AsyncStorage.getItem('produtos');
@@ -19,19 +18,15 @@ export default function Estoque({ navigation }) {
     }
   };
 
-  // Função para excluir um produto
   const excluirProduto = async (index) => {
     try {
       let produtosSalvos = await AsyncStorage.getItem('produtos');
       produtosSalvos = JSON.parse(produtosSalvos);
 
-      // Remove o produto da lista
       produtosSalvos.splice(index, 1);
 
-      // Salva a lista atualizada no AsyncStorage
       await AsyncStorage.setItem('produtos', JSON.stringify(produtosSalvos));
 
-      // Atualiza o estado
       setProdutos(produtosSalvos);
       Alert.alert('Produto Excluído', 'Produto excluído com sucesso!');
     } catch (error) {
@@ -39,7 +34,6 @@ export default function Estoque({ navigation }) {
     }
   };
 
-  // Função para editar um produto
   const editarProduto = (produto, index) => {
     navigation.navigate('EditarProduto', { produto, index });
   };
@@ -58,15 +52,12 @@ export default function Estoque({ navigation }) {
   );
 
   useEffect(() => {
-    // Carregar produtos ao montar o componente
     carregarProdutos();
 
-    // Atualiza os produtos ao voltar da tela de edição
     const unsubscribe = navigation.addListener('focus', () => {
       carregarProdutos();
     });
 
-    // Cleanup do listener
     return unsubscribe;
   }, [navigation]);
 
