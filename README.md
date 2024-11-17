@@ -3,7 +3,7 @@ Para Iniciar o Projeto
 
 npm start
 
-abaixo estçao as dependencias usadas no projeto
+abaixo estão as dependencias usadas no projeto
 
 npm install @react-navigation/native
 npm install @react-navigation/stack
