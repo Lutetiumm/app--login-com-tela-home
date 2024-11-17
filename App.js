@@ -17,24 +17,23 @@ const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 function MyDrawer({ navigation }) {
-  // Função para sair
   const sair = () => {
     Alert.alert(
-      "Deseja realmente sair?", // Título
-      "Se você sair, precisará fazer login novamente.", // Mensagem
+      "Deseja realmente sair?", 
+      "Se você sair, precisará fazer login novamente.", 
       [
         {
-          text: "Cancelar", // Opção para cancelar
+          text: "Cancelar", 
           style: "cancel"
         },
         {
-          text: "Sim", // Confirmação para sair
+          text: "Sim", 
           onPress: async () => {
             try {
-              await AsyncStorage.removeItem('usuario'); // Remove o usuário do AsyncStorage
+              await AsyncStorage.removeItem('usuario'); 
               navigation.reset({
                 index: 0,
-                routes: [{ name: 'TelaLogin' }], // Redireciona para a TelaLogin
+                routes: [{ name: 'TelaLogin' }], 
               });
             } catch (error) {
               console.log('Erro ao sair', error);
@@ -63,12 +62,12 @@ export default function App() {
         <Stack.Screen
           name="TelaLogin"
           component={TelaLogin}
-          options={{ headerShown: false }} // Para esconder o cabeçalho na tela de login
+          options={{ headerShown: false }} 
         />
         <Stack.Screen
           name="TelaCadastro"
           component={TelaCadastro}
-          options={{ headerShown: false }} // Opcional, se você quiser esconder o cabeçalho
+          options={{ headerShown: false }} 
         />
         <Stack.Screen
           name="RecSenha"
@@ -77,8 +76,8 @@ export default function App() {
         />
         <Stack.Screen
           name="Home"
-          component={MyDrawer} // Navegação com Drawer é chamada dentro da "Home"
-          options={{ headerShown: false }} // Esconde o cabeçalho na tela Home
+          component={MyDrawer}
+          options={{ headerShown: false }} 
         />
         <Stack.Screen 
           name="EditarProduto" 
