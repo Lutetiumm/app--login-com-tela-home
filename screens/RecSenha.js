@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 50,
-    width: '80%', // Ajusta a largura do campo para 80% da tela
+    width: '80%',
     borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 5,
