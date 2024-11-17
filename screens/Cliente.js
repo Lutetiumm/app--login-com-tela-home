@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Alert, Image, FlatList, Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Imagem do Cliente no Menu
+
 const imagemCliente = require('../assets/iconusuario.webp');
 
 export default function Cliente() {
@@ -13,7 +13,7 @@ export default function Cliente() {
   const [clientes, setClientes] = useState([]);
   const [nomeBusca, setNomeBusca] = useState('');
 
-  // Função para salvar um cliente
+
   const salvarCliente = async () => {
     if (!nome || !email || !telefone || !endereco) {
       Alert.alert('Erro', 'Por favor, preencha todos os campos.');
@@ -24,32 +24,29 @@ export default function Cliente() {
       let clientesList = await AsyncStorage.getItem('clientes');
       clientesList = clientesList ? JSON.parse(clientesList) : [];
 
-      // Adiciona o novo cliente à lista
+
       clientesList.push({ nome, email, telefone, endereco });
 
-      // Salva a lista de clientes no AsyncStorage
       await AsyncStorage.setItem('clientes', JSON.stringify(clientesList));
 
-      // Limpa os campos de entrada
       setNome('');
       setEmail('');
       setTelefone('');
       setEndereco('');
 
-      // Exibe uma mensagem de sucesso
+
       Alert.alert('Cliente Cadastrado', 'Cliente cadastrado com sucesso!');
     } catch (error) {
       Alert.alert('Erro', 'Erro ao salvar cliente.');
     }
   };
 
-  // Função para buscar clientes pelo nome
   const buscarClientes = async (nomeBusca) => {
     try {
       let clientesList = await AsyncStorage.getItem('clientes');
       clientesList = clientesList ? JSON.parse(clientesList) : [];
       
-      // Filtra os clientes pelo nome informado
+
       const clientesFiltrados = clientesList.filter(cliente =>
         cliente.nome.toLowerCase().includes(nomeBusca.toLowerCase())
       );
@@ -60,10 +57,10 @@ export default function Cliente() {
     }
   };
 
-  // Função para lidar com a mudança na busca
+
   const handleBuscaChange = (texto) => {
     setNomeBusca(texto);
-    buscarClientes(texto);  // Chama a função de busca sempre que o texto mudar
+    buscarClientes(texto);  
   };
 
   return (
