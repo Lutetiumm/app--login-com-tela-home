@@ -13,21 +13,16 @@ export default function Produto() {
     }
 
     try {
-      // Recupera a lista de produtos já cadastrados
       let produtos = await AsyncStorage.getItem('produtos');
       produtos = produtos ? JSON.parse(produtos) : [];
 
-      // Adiciona o novo produto à lista
       produtos.push({ nome, preco });
 
-      // Armazena a lista atualizada no AsyncStorage
       await AsyncStorage.setItem('produtos', JSON.stringify(produtos));
 
-      // Limpa os campos de entrada
       setNome('');
       setPreco('');
 
-      // Exibe uma mensagem de sucesso
       Alert.alert('Produto Cadastrado', 'Produto cadastrado com sucesso!');
     } catch (error) {
       Alert.alert('Erro', 'Erro ao salvar produto.');
