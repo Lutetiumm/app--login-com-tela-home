@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity, ImageBackground, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Importe a imagem PNG para o fundo
-import backgroundImage from '../assets/backgroud.webp'; // Substitua pelo caminho correto da imagem PNG
+import backgroundImage from '../assets/backgroud.webp';
 
 export default function TelaLogin({ navigation }) {
   const [email, setEmail] = useState('');
@@ -16,25 +15,23 @@ export default function TelaLogin({ navigation }) {
       return;
     }
   
-    setIsLoading(true); // Exibe o indicador de loading
+    setIsLoading(true);
   
     try {
-      // Recupera os dados armazenados no AsyncStorage
       const emailArmazenado = await AsyncStorage.getItem('email');
       const senhaArmazenada = await AsyncStorage.getItem('senha');
   
-      // Verifica se os dados de login correspondem
       if (email === emailArmazenado && senha === senhaArmazenada) {
         const usuarioLogado = await AsyncStorage.getItem('usuario');
-        await AsyncStorage.setItem('usuarioLogado', usuarioLogado); // Salva as informações do usuário logado
-        navigation.navigate('Home'); // Navega para a tela Home
+        await AsyncStorage.setItem('usuarioLogado', usuarioLogado);
+        navigation.navigate('Home');
       } else {
         Alert.alert('Erro', 'Usuário ou senha incorretos');
       }
     } catch (error) {
       Alert.alert('Erro', 'Falha ao tentar fazer login');
     } finally {
-      setIsLoading(false); // Oculta o indicador de loading após a tentativa
+      setIsLoading(false);
     }
   };
   
@@ -42,16 +39,14 @@ export default function TelaLogin({ navigation }) {
 
 
   const handleRecuperarSenha = () => {
-    // Navega para a tela de recuperação de senha
     navigation.navigate('RecSenha');
   };
 
   return (
-    // Use o ImageBackground para definir a imagem de fundo
     <ImageBackground
       source={backgroundImage}
       style={styles.container}
-      resizeMode="cover" // Faz a imagem cobrir toda a tela
+      resizeMode="cover" 
     >
       <Text style={styles.title}>Login</Text>
 
@@ -76,7 +71,7 @@ export default function TelaLogin({ navigation }) {
       {/* Botão Entrar */}
       <TouchableOpacity onPress={handleLogin} style={styles.button}>
         {isLoading ? (
-          <ActivityIndicator size="small" color="#fff" /> // Exibe o loading enquanto o login está sendo processado
+          <ActivityIndicator size="small" color="#fff" />
         ) : (
           <Text style={styles.buttonText}>Entrar</Text>
         )}
@@ -106,7 +101,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
     textAlign: 'center',
-    color: 'white', // Cor do texto para visibilidade no fundo
+    color: 'white',
   },
   input: {
     height: 50,
@@ -115,22 +110,22 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.7)', // Fundo transparente para os campos
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
   },
   button: {
-    backgroundColor: '#007BFF', // Cor do botão
+    backgroundColor: '#007BFF',
     paddingVertical: 15,
     borderRadius: 5,
     marginBottom: 20,
-    alignItems: 'center', // Centraliza o texto no botão
+    alignItems: 'center',
   },
   buttonText: {
     fontSize: 18,
-    color: '#fff', // Cor do texto do botão
+    color: '#fff', 
   },
   footer: {
-    flexDirection: 'row', // Alinha os itens na horizontal
-    justifyContent: 'space-between', // Espaço entre os itens
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: 20,
   },
   recoveryLink: {
