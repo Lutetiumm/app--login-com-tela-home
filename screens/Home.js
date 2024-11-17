@@ -5,7 +5,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function Home({ navigation }) {
   const [usuario, setUsuario] = useState(null);
 
-  // Função para carregar as informações do usuário logado
   const carregarUsuario = async () => {
     try {
       const usuarioLogado = await AsyncStorage.getItem('usuarioLogado');
@@ -17,12 +16,11 @@ export default function Home({ navigation }) {
     }
   };
 
-  // Função para realizar o logout
   const handleLogout = async () => {
     try {
-      await AsyncStorage.removeItem('usuarioLogado'); // Remove o usuário logado do AsyncStorage
+      await AsyncStorage.removeItem('usuarioLogado');
       Alert.alert('Sucesso', 'Você foi desconectado!');
-      navigation.navigate('TelaLogin'); // Redireciona para a tela de login
+      navigation.navigate('TelaLogin'); 
     } catch (error) {
       Alert.alert('Erro', 'Falha ao tentar fazer logout');
     }
