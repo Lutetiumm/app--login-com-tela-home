@@ -17,14 +17,11 @@ export default function EditarProduto({ route, navigation }) {
     try {
       let produtosSalvos = await AsyncStorage.getItem('produtos');
       produtosSalvos = JSON.parse(produtosSalvos);
-
-      // Edita o produto na lista
+      
       produtosSalvos[index] = { nome, preco };
 
-      // Salva a lista atualizada no AsyncStorage
       await AsyncStorage.setItem('produtos', JSON.stringify(produtosSalvos));
 
-      // Volta para a tela de estoque
       navigation.goBack();
       Alert.alert('Produto Editado', 'Produto editado com sucesso!');
     } catch (error) {
