@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ImageBackground, Alert } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage'; // Verifique a importação
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import backgroundImage from '../assets/backgroud.webp';
 
@@ -11,11 +11,10 @@ export default function TelaCadastro({ navigation }) {
   const [senha, setSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
 
-  // Função para gerar o número de matrícula
   const gerarMatricula = () => {
-    const numero = Math.floor(10000 + Math.random() * 90000); // Gera 5 números aleatórios
-    const letra = String.fromCharCode(65 + Math.floor(Math.random() * 26)); // Gera uma letra aleatória
-    return `${numero}-${letra}`; // Combina os 5 números com a letra
+    const numero = Math.floor(10000 + Math.random() * 90000);
+    const letra = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+    return `${numero}-${letra}`;
   };
 
   const handleCadastro = async () => {
@@ -30,17 +29,14 @@ export default function TelaCadastro({ navigation }) {
     }
   
     try {
-      // Verifica se o usuário já existe
       const emailExistente = await AsyncStorage.getItem('email');
       if (emailExistente === email) {
         Alert.alert('Erro', 'Já existe um usuário com esse email!');
         return;
       }
   
-      // Gera o número de matrícula
       const matricula = gerarMatricula();
   
-      // Armazenando as informações do usuário
       const usuario = {
         nome,
         telefone,
@@ -49,11 +45,9 @@ export default function TelaCadastro({ navigation }) {
         matricula
       };
   
-      // Armazenando email e senha separadamente
       await AsyncStorage.setItem('email', email);
       await AsyncStorage.setItem('senha', senha);
-      await AsyncStorage.setItem('usuario', JSON.stringify(usuario)); // Armazena o usuário com todas as informações
-  
+      await AsyncStorage.setItem('usuario', JSON.stringify(usuario)); 
       Alert.alert('Sucesso', 'Cadastro realizado com sucesso');
       navigation.navigate('TelaLogin');
     } catch (error) {
@@ -136,7 +130,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 50,
-    width: '80%', // Ajusta a largura do campo para 80% da tela
+    width: '80%',
     borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 5,
